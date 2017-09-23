@@ -1357,8 +1357,8 @@ application code, specifying its O/S priority
       sem_t  *startStopSem;      
     %endif
     
-    optStr = strdup("-w");
-    port = 17725;
+    char_T *optStr = strdup("-w");
+    int_T port = 17725;
 
     %if !ERTSimulateOneStep()
      #if 0
