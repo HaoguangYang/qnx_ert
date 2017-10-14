@@ -228,10 +228,10 @@ OPT_OPTS = -lang-c++
 else
 OPT_OPTS =
 endif
-OPT_OPTS += $(DEFAULT_OPT_OPTS) -g  -V4.4.2,gcc_ntoarmv7le -Bstatic -static
+OPT_OPTS += $(DEFAULT_OPT_OPTS) -g  -V4.7.3,gcc_ntoarmv7le -Bstatic -static
 
 # General User Options
-OPTS = -V4.4.2,gcc_ntoarmv7le -Bstatic -static
+OPTS = -V4.7.3,gcc_ntoarmv7le -Bstatic -static
 
 
 # Compiler options, etc:
