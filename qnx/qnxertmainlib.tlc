@@ -31,7 +31,7 @@
   %assign isERTMalloc = TLC_FALSE
   %% Please comment out this line to get back default ert target.
   %assign isERTMalloc = TLC_FALSE && ...
-     MultiInstanceERTCode && ...
+     CodeInterfacePackaging && ...
     !GenerateErtSFunction && !GenerateClassInterface && ...
     !ExportFunctionsMode && !GenerateGRTWrapper
   %return isERTMalloc
@@ -313,7 +313,7 @@ illustates how you do this relative to initializing the model.
         }      
       %endif
       
-    %elseif MultiInstanceERTCode && !GenerateClassInterface
+    %elseif CodeInterfacePackaging && !GenerateClassInterface
       
       %% Pack model data into RTM
       %<FcnPackModelDataIntoRTM()>      
@@ -406,7 +406,7 @@ illustates how you do this relative to initializing the model.
     %<SLibDeploymentCallERTEntryPoints(tid)>
   %else
      %if (GenerateSampleERTMain || OriginalGenerateSampleERTMain || RateBasedStepFcn)...
-      && SLibIsRateGrouping() && (!SLibGenerateNativeThreads())
+      && SLibIsPeriodicRateGrouping() && (!SLibGenerateNativeThreads())
       %assign tidSuffix = tid
     %else
       %assign rootSystem.CurrentTID = ""
@@ -645,7 +645,7 @@ real-time model and returns from rt_OneStep.
   %else
     %assign fcnName = "%<fcnPref>SetEventsForThisBaseStep"
     
-    %if MultiInstanceERTCode
+    %if CodeInterfacePackaging
       %<fcnName>(%<eventflags>, %<tSimStruct>);
     %else
       %<fcnName>(%<eventflags>);
@@ -797,7 +797,7 @@ real-time model and returns from rt_OneStep.
           /* Set model inputs associated with subrates here */
           
           /* Step the model for subrate "i" */
-          %if GenerateSampleERTMain && SLibIsRateGrouping() 
+          %if GenerateSampleERTMain && SLibIsPeriodicRateGrouping() 
             switch(i) {
               %foreach idx = LibGetNumSyncPeriodicTasks() - 1
                 %assign tid = idx + 1 + tid01Eq
@@ -1663,4 +1663,3 @@ application code, specifying its O/S priority
 
   %assign ::GeneratingMainFunction = TLC_FALSE
 %endfunction
-
